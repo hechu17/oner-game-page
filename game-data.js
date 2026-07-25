@@ -24,9 +24,9 @@
                                    "你坐在回老家的大巴车上百无聊赖，闷热的空气和微微晕车的感觉让你只能靠在车窗上盯着自己的倒影发呆。当你昏昏欲睡时，捏在手里的手机突然振动了一下，锁屏上弹出了一条推送。",
                                    "新闻头条：“镜象马戏团”新董事会成立：废弃多年如何重生"
                                ],
-                      "background":  "n00-bus-opening.png",
+                      "background":  "n00-bus-opening.webp",
                       "character":  null,
-                      "item":  "item-phone-news.png",
+                      "item":  "item-phone-news.webp",
                       "revealItemAfterText":  true,
                       "useItemAsChoice":  true,
                       "choices":  [
@@ -47,9 +47,9 @@
                       "body":  [
 
                                ],
-                      "background":  "n00-bus-opening.png",
+                      "background":  "n00-bus-opening.webp",
                       "character":  null,
-                      "item":  "news-article-board.png",
+                      "item":  "news-article-board.webp",
                       "scrollItem":  true,
                       "hideStoryPanel":  true,
                       "choices":  [
@@ -82,20 +82,20 @@
                                    "屋子中央放着一张罩着桌布的桌子，桌上的东西放得散乱，看起来当时的人似乎离开得很匆忙。声音是从桌子下面传来的，你小心翼翼地掀开桌布，但依旧被灰尘扑了一脸，再次睁开眼睛时只在桌子下面发现了一个洞，洞上面的地板被掀开放在一旁，洞里有一个本子。",
                                    "打开看看也没什么吧？"
                                ],
-                      "background":  "n02-circus-yard-entrance.png",
-                      "backgroundBefore":  "n00-bus-opening.png",
+                      "background":  "n02-circus-yard-entrance.webp",
+                      "backgroundBefore":  "n00-bus-opening.webp",
                       "backgroundSwitchAt":  5,
                       "paragraphBackgrounds":  {
                                                    "3":  "__black__",
-                                                   "7":  "n02-old-lit-theater.png",
-                                                   "8":  "n02-mirror-stage.png",
-                                                   "9":  "n02-mirror-stage.png",
-                                                   "10":  "n02-abandoned-dressing-room.png",
-                                                   "11":  "n02-abandoned-dressing-room.png",
-                                                   "12":  "n02-abandoned-dressing-room.png"
+                                                   "7":  "n02-old-lit-theater.webp",
+                                                   "8":  "n02-mirror-stage.webp",
+                                                   "9":  "n02-mirror-stage.webp",
+                                                   "10":  "n02-abandoned-dressing-room.webp",
+                                                   "11":  "n02-abandoned-dressing-room.webp",
+                                                   "12":  "n02-abandoned-dressing-room.webp"
                                                },
                       "character":  null,
-                      "item":  "item-notebook.png",
+                      "item":  "item-notebook.webp",
                       "revealItemAfterText":  true,
                       "useItemAsChoice":  true,
                       "choices":  [
@@ -151,7 +151,7 @@
                                    "虽然是变数，但影响应该不大。按计划行事吧，我去和白虎说。我们的私下交流暂时就到这里。",
                                    "继续游戏"
                                ],
-                      "background":  "n02-abandoned-dressing-room.png",
+                      "background":  "n02-abandoned-dressing-room.webp",
                       "character":  null,
                       "item":  "ui-notebook-frame.png",
                       "hideStoryPanel":  true,
@@ -177,9 +177,9 @@
                                    "难道这就是刚才的本子里提到的“信”？",
                                    "看一看也无妨吧？"
                                ],
-                      "background":  "n02-abandoned-dressing-room.png",
+                      "background":  "n02-abandoned-dressing-room.webp",
                       "character":  null,
-                      "item":  "item-wax-envelope.png",
+                      "item":  "item-wax-envelope.webp",
                       "revealItemAfterText":  true,
                       "useItemAsChoice":  true,
                       "choices":  [
@@ -222,9 +222,9 @@
                                    "对不起，我只是希望有人能记得我。",
                                    "继续游戏"
                                ],
-                      "background":  "n02-abandoned-dressing-room.png",
+                      "background":  "n02-abandoned-dressing-room.webp",
                       "character":  null,
-                      "item":  "ui-letter-frame.png",
+                      "item":  "ui-letter-frame.webp",
                       "hideStoryPanel":  true,
                       "textOnItem":  true,
                       "singleColumnText":  true,
@@ -254,9 +254,9 @@
                                    "“叮——”哪来的场铃？",
                                    "继续游戏"
                                ],
-                      "background":  "n06-dressing-room-with-crown.png",
+                      "background":  "n06-dressing-room-with-crown.webp",
                       "character":  null,
-                      "item":  "item-crown.png",
+                      "item":  "item-crown.webp",
                       "revealItemAfterText":  true,
                       "revealItemAfterParagraph":  1,
                       "itemAdvanceParagraph":  4,
@@ -293,17 +293,17 @@
                                    "没等你想清楚，你就进了自家的院子，爷爷奶奶的嘘寒问暖使你将那一瞬的疑惑抛之脑后，再也没想起来过。",
                                    "“镜象马戏团”？没听说过。"
                                ],
-                      "background":  "n02-circus-yard-entrance-car.png",
+                      "background":  "n02-circus-yard-entrance-car.webp",
                       "paragraphBackgrounds":  {
-                                                   "0":  "n02-abandoned-dressing-room.png",
-                                                   "1":  "n02-mirror-stage.png",
-                                                   "2":  "n02-mirror-stage.png",
-                                                   "3":  "n02-mirror-stage.png",
-                                                   "4":  "n02-mirror-stage.png",
-                                                   "5":  "n02-mirror-stage.png",
+                                                   "0":  "n02-abandoned-dressing-room.webp",
+                                                   "1":  "n02-mirror-stage.webp",
+                                                   "2":  "n02-mirror-stage.webp",
+                                                   "3":  "n02-mirror-stage.webp",
+                                                   "4":  "n02-mirror-stage.webp",
+                                                   "5":  "n02-mirror-stage.webp",
                                                    "6":  "__black__",
-                                                   "7":  "n00-bus-opening.png",
-                                                   "8":  "n00-bus-opening.png",
+                                                   "7":  "n00-bus-opening.webp",
+                                                   "8":  "n00-bus-opening.webp",
                                                    "11":  "__black__",
                                                    "12":  "__black__"
 
@@ -343,19 +343,19 @@
                                    "你戴上了它，看了镜子里自己的镜像一阵，收拾了一下自己的东西，也离开了马戏团。",
                                    "达成成就——【空镜女王】"
                                ],
-                      "background":  "ending-n08-empty-mirror-queen.png",
+                      "background":  "ending-n08-empty-mirror-queen.webp",
                       "paragraphBackgrounds":  {
-                                                   "0":  "n09-mirror-boss-office.png",
-                                                   "1":  "n09-mirror-boss-office.png",
-                                                   "2":  "n09-mirror-boss-office.png",
-                                                   "3":  "n09-mirror-boss-office.png",
-                                                   "4":  "n09-mirror-boss-office.png",
-                                                   "5":  "n10-stage-side-curtain.png",
-                                                   "6":  "n10-stage-side-curtain.png",
-                                                   "7":  "n10-stage-side-curtain.png",
-                                                   "8":  "n10-stage-side-curtain.png",
-                                                   "9":  "n10-stage-side-curtain.png",
-                                                   "10":  "n10-stage-side-curtain.png",
+                                                   "0":  "n09-mirror-boss-office.webp",
+                                                   "1":  "n09-mirror-boss-office.webp",
+                                                   "2":  "n09-mirror-boss-office.webp",
+                                                   "3":  "n09-mirror-boss-office.webp",
+                                                   "4":  "n09-mirror-boss-office.webp",
+                                                   "5":  "n10-stage-side-curtain.webp",
+                                                   "6":  "n10-stage-side-curtain.webp",
+                                                   "7":  "n10-stage-side-curtain.webp",
+                                                   "8":  "n10-stage-side-curtain.webp",
+                                                   "9":  "n10-stage-side-curtain.webp",
+                                                   "10":  "n10-stage-side-curtain.webp",
                                                    "11":  "__black__",
                                                    "12":  "__black__"
                                                },
@@ -363,13 +363,13 @@
                                               {
                                                   "from":  0,
                                                   "to":  4,
-                                                  "character":  "mirror-elephant-mask-man.png",
+                                                  "character":  "mirror-elephant-mask-man.webp",
                                                   "speaker":  "镜象"
                                               },
                                               {
                                                   "from":  5,
                                                   "to":  10,
-                                                  "character":  "grey-leopard.png",
+                                                  "character":  "grey-leopard.webp",
                                                   "speaker":  "灰豹"
                                               }
                                           ],
@@ -404,8 +404,8 @@
                                    "①告发",
                                    "②保密"
                                ],
-                      "background":  "n09-mirror-boss-office.png",
-                      "character":  "mirror-elephant-mask-man.png",
+                      "background":  "n09-mirror-boss-office.webp",
+                      "character":  "mirror-elephant-mask-man.webp",
                       "characterBySpeaker":  true,
                       "item":  null,
                       "choices":  [
@@ -436,8 +436,8 @@
                       "①去",
                       "②留在化妆间"
                                ],
-                      "background":  "n02-new-dressing-room.png",
-                      "character":  "grey-leopard.png",
+                      "background":  "n02-new-dressing-room.webp",
+                      "character":  "grey-leopard.webp",
                       "item":  null,
                       "choices":  [
                                       {
@@ -472,8 +472,8 @@
                                    "①回到化妆间",
                                    "②去镜象老板办公室"
                                ],
-                      "background":  "n11-side-stage-eavesdrop.png",
-                      "character":  "black-lion.png",
+                      "background":  "n11-side-stage-eavesdrop.webp",
+                      "character":  "black-lion.webp",
                       "characterBySpeaker":  true,
                       "item":  null,
                       "choices":  [
@@ -570,8 +570,8 @@
                                    "①偷偷跟上去",
                                    "②留在化妆间"
                                ],
-                      "background":  "n02-mirror-stage.png",
-                      "character":  "grey-leopard.png",
+                      "background":  "n02-mirror-stage.webp",
+                      "character":  "grey-leopard.webp",
                       "characterBySpeaker":  true,
                       "item":  null,
                       "revealChoicesAfterText":  true,
@@ -659,7 +659,7 @@
                                    "我只是万千“镜象”中的一个罢了。",
                                    "继续游戏"
                                ],
-                      "background":  "n14-crown-diary-fall.png",
+                      "background":  "n14-crown-diary-fall.webp",
                       "character":  null,
                       "item":  "ui-work-diary-frame.png",
                       "hideStoryPanel":  true,
@@ -683,9 +683,9 @@
                       "body":  [
                                    "什么东西从头顶掉了下来，砸掉了王冠，你也从幻梦中清醒过来。你揉了揉有点痛的头，发现刚才砸你的是一个本子。看起来像是一本残缺的工作日记。"
                                ],
-                      "background":  "n14-crown-diary-fall.png",
+                      "background":  "n14-crown-diary-fall.webp",
                       "character":  null,
-                      "item":  "item-work-diary.png",
+                      "item":  "item-work-diary.webp",
                       "useItemAsChoice":  true,
                       "choices":  [
                                       {
@@ -710,7 +710,7 @@
                                    "还是说，只有你的镜像？",
                                    "达成成就——【水仙女王】"
                                ],
-                      "background":  "ending-n15-narcissus-queen.png",
+                      "background":  "ending-n15-narcissus-queen.webp",
                       "paragraphBackgrounds":  {
                                                    "0":  "__black__",
                                                    "1":  "__black__",
@@ -750,13 +750,13 @@
                                    "起初你还有意识地回应镜象的话语和台下的目光，可渐渐的，你感觉你的身体里有什么东西在不断消散，或许是灯光太过炽热，烤化了你的意识。总之，当镜象先生结束了关于你的冗长介绍后，你的外壳已经永远保持在恬静乖巧的状态，至于你的心灵与灵魂，谁知道它们去哪儿了呢？",
                                    "达成成就——【傀儡女王】"
                                ],
-                      "background":  "ending-n17-puppet-queen.png",
+                      "background":  "ending-n17-puppet-queen.webp",
                       "paragraphBackgrounds":  {
-                                                   "0":  "n09-mirror-boss-office.png",
-                                                   "1":  "n09-mirror-boss-office.png",
+                                                   "0":  "n09-mirror-boss-office.webp",
+                                                   "1":  "n09-mirror-boss-office.webp",
                                                    "2":  "__black__",
-                                                   "3":  "n02-mirror-stage.png",
-                                                   "4":  "n02-mirror-stage.png"
+                                                   "3":  "n02-mirror-stage.webp",
+                                                   "4":  "n02-mirror-stage.webp"
                                                },
                       "character":  null,
                       "item":  null,
@@ -795,18 +795,18 @@
                                    "没等你回答，刀刃迅速划过你的脖子，一块厚布按在你的伤口上防止飞溅，剩余的血液染红灰豹的手，也染红了你的裙子。你动弹不得，只能看着镜子里的影像，直到失去意识。",
                                    "达成成就——【鲜血女王】"
                                ],
-                      "background":  "ending-n18-blood-queen.png",
+                      "background":  "ending-n18-blood-queen.webp",
                       "paragraphBackgrounds":  {
-                                                   "0":  "n02-new-dressing-room.png",
-                                                   "1":  "n02-new-dressing-room.png",
-                                                   "2":  "n02-new-dressing-room.png",
-                                                   "3":  "n02-new-dressing-room.png",
-                                                   "4":  "n02-new-dressing-room.png",
-                                                   "5":  "n02-new-dressing-room.png",
-                                                   "6":  "n02-new-dressing-room.png",
-                                                   "7":  "n02-new-dressing-room.png"
+                                                   "0":  "n02-new-dressing-room.webp",
+                                                   "1":  "n02-new-dressing-room.webp",
+                                                   "2":  "n02-new-dressing-room.webp",
+                                                   "3":  "n02-new-dressing-room.webp",
+                                                   "4":  "n02-new-dressing-room.webp",
+                                                   "5":  "n02-new-dressing-room.webp",
+                                                   "6":  "n02-new-dressing-room.webp",
+                                                   "7":  "n02-new-dressing-room.webp"
                       },
-                      "character":  "grey-leopard.png",
+                      "character":  "grey-leopard.webp",
                       "characterUntilParagraph":  7,
                       "characterOnlyWhenSpeaker":  "灰豹",
                       "item":  null,
@@ -856,15 +856,15 @@
                                    "关上门后，你看着手里的王冠，想了想，戴在了头上，站到了镜子面前。对于到底发生了什么，你只有一些猜测。但同时你也知道，离开是最好的选择。",
                                    "达成成就——【自由女王】"
                                ],
-                      "background":  "ending-n19-freedom-queen.png",
+                      "background":  "ending-n19-freedom-queen.webp",
                       "paragraphBackgrounds":  {
-                                                   "0":  "n10-stage-side-curtain.png",
-                                                   "1":  "n10-stage-side-curtain.png",
-                                                   "2":  "n10-stage-side-curtain.png",
-                                                   "3":  "n10-stage-side-curtain.png",
-                                                   "4":  "n10-stage-side-curtain.png",
-                                                   "5":  "n10-stage-side-curtain.png",
-                                                   "6":  "n10-stage-side-curtain.png",
+                                                   "0":  "n10-stage-side-curtain.webp",
+                                                   "1":  "n10-stage-side-curtain.webp",
+                                                   "2":  "n10-stage-side-curtain.webp",
+                                                   "3":  "n10-stage-side-curtain.webp",
+                                                   "4":  "n10-stage-side-curtain.webp",
+                                                   "5":  "n10-stage-side-curtain.webp",
+                                                   "6":  "n10-stage-side-curtain.webp",
                                                    "7":  "__black__",
                                                    "8":  "__black__",
                                                    "9":  "__black__",
@@ -900,3 +900,4 @@
                   }
               ]
 };
+
