@@ -693,8 +693,14 @@
     return Math.min(Math.max(value, min), max);
   }
 
+  function isPortraitTouchDevice() {
+    return window.matchMedia("(orientation: portrait) and (hover: none) and (pointer: coarse)").matches;
+  }
+
   function syncGameScale() {
-    const scale = Math.min(window.innerWidth / GAME_WIDTH, window.innerHeight / GAME_HEIGHT);
+    const viewportWidth = isPortraitTouchDevice() ? window.innerHeight : window.innerWidth;
+    const viewportHeight = isPortraitTouchDevice() ? window.innerWidth : window.innerHeight;
+    const scale = Math.min(viewportWidth / GAME_WIDTH, viewportHeight / GAME_HEIGHT);
     document.documentElement.style.setProperty("--game-scale", `${scale}`);
     requestAnimationFrame(syncFrameLayout);
   }

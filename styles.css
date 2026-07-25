@@ -751,8 +751,15 @@ h1 {
 }
 
 @media (orientation: portrait) and (hover: none) and (pointer: coarse) {
-  .orientation-gate {
-    display: grid;
+  body {
+    place-items: center;
+  }
+
+  .shell {
+    width: min(100vh, calc(100vw * 16 / 9));
+    height: min(100vw, calc(100vh * 9 / 16));
+    transform: rotate(90deg);
+    transform-origin: center;
   }
 }
 
