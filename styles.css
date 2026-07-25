@@ -751,14 +751,24 @@ h1 {
 }
 
 @media (orientation: portrait) and (hover: none) and (pointer: coarse) {
+  :root {
+    --rotated-game-width: min(100vh, calc(100vw * 16 / 9));
+    --rotated-game-height: min(100vw, calc(100vh * 9 / 16));
+  }
+
+  html,
   body {
-    place-items: center;
+    width: 100vw;
+    height: 100vh;
   }
 
   .shell {
-    width: min(100vh, calc(100vw * 16 / 9));
-    height: min(100vw, calc(100vh * 9 / 16));
-    transform: rotate(90deg);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: var(--rotated-game-width);
+    height: var(--rotated-game-height);
+    transform: translate(-50%, -50%) rotate(90deg);
     transform-origin: center;
   }
 }
