@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>镜象马戏团</title>
+    <meta name="description" content="一场旧马戏团里的互动剧情游戏">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="stage" aria-live="polite">
+        <img class="scene-bg" id="sceneBg" alt="">
+        <div class="scene-shade" aria-hidden="true"></div>
+        <img class="scene-item" id="sceneItem" alt="" hidden>
+        <div class="scene-frame-text" id="sceneFrameText" hidden></div>
+        <button class="frame-page-button frame-page-prev" type="button" id="framePrevButton" title="上一页" hidden>‹</button>
+        <button class="frame-page-button frame-page-next" type="button" id="frameNextButton" title="下一页" hidden>›</button>
+        <div class="scene-scroll" id="sceneScroll" hidden>
+          <img id="sceneScrollImage" alt="">
+        </div>
+        <img class="scene-character" id="sceneCharacter" alt="" hidden>
+
+        <section class="start-screen" id="startScreen" aria-label="游戏开始界面">
+          <img class="start-bg" src="assets/images/n02-old-lit-theater.png" alt="">
+          <div class="start-shade" aria-hidden="true"></div>
+          <div class="start-logo">
+            <p class="kicker">Mirror Circus</p>
+            <h1>镜象马戏团</h1>
+          </div>
+          <button class="start-button" type="button" id="startButton">开始游戏</button>
+        </section>
+
+        <header class="hud">
+          <div>
+            <p class="kicker">Mirror Circus</p>
+            <h1>镜象马戏团</h1>
+          </div>
+          <div class="meter" aria-label="探索进度">
+            <span id="progressText">0 / 0</span>
+          </div>
+        </header>
+
+        <article class="story-panel" id="storyPanel">
+          <div class="choices" id="choices"></div>
+          <div class="speaker-row">
+            <div class="speaker">
+              <span id="nodeId">N00</span>
+              <strong id="nodeTitle"></strong>
+            </div>
+            <div class="node-meta">
+              <span id="nodeType">opening</span>
+              <span id="endingBadge" hidden>结局</span>
+            </div>
+          </div>
+
+          <div class="story-text" id="storyText"></div>
+
+          <footer class="controls" aria-label="游戏控制">
+            <button type="button" id="backButton" title="回到上一步">↶</button>
+            <button type="button" id="restartButton">重新开始</button>
+            <button type="button" id="mapButton">分支</button>
+            <button type="button" id="endingsButton">结局</button>
+          </footer>
+        </article>
+      </section>
+
+      <aside class="drawer" id="drawer" aria-label="附加面板" hidden>
+        <div class="drawer-head">
+          <h2 id="drawerTitle">分支</h2>
+          <button type="button" id="closeDrawer" title="关闭">×</button>
+        </div>
+        <div id="drawerBody"></div>
+      </aside>
+    </main>
+
+    <script src="game-data.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
