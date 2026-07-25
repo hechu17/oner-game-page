@@ -699,6 +699,20 @@
     requestAnimationFrame(syncFrameLayout);
   }
 
+  async function requestLandscapeMode() {
+    try {
+      if (document.fullscreenEnabled && !document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      }
+
+      if (screen.orientation?.lock) {
+        await screen.orientation.lock("landscape");
+      }
+    } catch (error) {
+      // Some mobile browsers, especially iOS Safari, only allow a visual rotate prompt.
+    }
+  }
+
   function resolveImagePath(image) {
     if (/^(?:[a-z]+:)?\/\//i.test(image) || image.includes("/")) {
       return image;
@@ -783,6 +797,7 @@
   el.frameNextButton.addEventListener("click", advanceParagraph);
   el.sceneItem.addEventListener("load", syncFrameLayout);
   el.startButton.addEventListener("click", () => {
+    requestLandscapeMode();
     el.startScreen.hidden = true;
   });
   window.addEventListener("resize", syncGameScale);

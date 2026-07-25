@@ -710,6 +710,52 @@ h1 {
   color: var(--muted);
 }
 
+.orientation-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(215, 173, 99, 0.18), transparent 42%),
+    rgba(8, 7, 7, 0.94);
+  color: var(--ink);
+  text-align: center;
+}
+
+.orientation-card {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+
+.phone-rotate-icon {
+  width: 58px;
+  height: 86px;
+  border: 3px solid var(--gold);
+  border-radius: 12px;
+  box-shadow: 0 0 34px rgba(215, 173, 99, 0.24);
+  transform: rotate(90deg);
+}
+
+.orientation-card p {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.orientation-card span {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+@media (orientation: portrait) and (hover: none) and (pointer: coarse) {
+  .orientation-gate {
+    display: grid;
+  }
+}
+
 @media (max-width: 0px) {
   :root {
     --book-top: 8%;
