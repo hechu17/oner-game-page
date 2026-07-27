@@ -1,6 +1,7 @@
 ﻿(function () {
   const STORAGE_KEY = "mirror-circus-save-v1";
   const MUSIC_STORAGE_KEY = "mirror-circus-music-enabled-v1";
+  const INTRO_START_TIME = 16;
   const IMAGE_DIR = "assets/images/";
   const GAME_WIDTH = 1920;
   const GAME_HEIGHT = 1080;
@@ -727,8 +728,11 @@
     el.musicToggle.textContent = musicEnabled ? "♪" : "×";
   }
 
-  function playMusic(audio) {
+  function playMusic(audio, startTime = 0) {
     if (!audio || !musicEnabled) return;
+    if (audio.paused && startTime > 0 && audio.currentTime < startTime) {
+      audio.currentTime = startTime;
+    }
     audio.volume = 0.58;
     audio.play().catch(() => {
       // Browsers can block autoplay until the first user gesture.
@@ -756,7 +760,7 @@
     if (startVisible) {
       outroMusicActive = false;
       stopMusic(el.outroMusic);
-      playMusic(el.introMusic);
+      playMusic(el.introMusic, INTRO_START_TIME);
       return;
     }
 
@@ -899,6 +903,9 @@
   syncMusic();
   render();
 })();
+
+
+
 
 
 
