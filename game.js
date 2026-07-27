@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const STORAGE_KEY = "mirror-circus-save-v1";
   const IMAGE_DIR = "assets/images/";
   const GAME_WIDTH = 1920;
@@ -367,7 +367,7 @@
       return node.backgroundBefore;
     }
 
-    return node.background || "n02-mirror-stage.png";
+    return node.background || "n02-mirror-stage.webp";
   }
 
   function getSceneCharacter(node, visibleUnit) {
@@ -394,16 +394,16 @@
 
     const text = typeof visibleUnit === "string" ? visibleUnit : visibleUnit?.text || "";
     if (text.startsWith("旁白：（灰豹）") || text.startsWith("灰豹：")) {
-      return "grey-leopard.png";
+      return "grey-leopard.webp";
     }
     if (text.startsWith("黑狮：")) {
-      return "black-lion.png";
+      return "black-lion.webp";
     }
     if (text.startsWith("白虎：")) {
       return "white-tiger.png";
     }
     if (text.startsWith("镜象：")) {
-      return "mirror-elephant-mask-man.png";
+      return "mirror-elephant-mask-man.webp";
     }
 
     return null;
@@ -705,7 +705,9 @@
     requestAnimationFrame(syncFrameLayout);
   }
 
-  async function requestLandscapeMode() {
+  async function requestMobileLandscapeMode() {
+    if (!isPortraitTouchDevice()) return;
+
     try {
       if (document.fullscreenEnabled && !document.fullscreenElement) {
         await document.documentElement.requestFullscreen();
@@ -715,7 +717,7 @@
         await screen.orientation.lock("landscape");
       }
     } catch (error) {
-      // Some mobile browsers, especially iOS Safari, only allow a visual rotate prompt.
+      // Unsupported browsers keep using the CSS rotated portrait fallback.
     }
   }
 
@@ -803,7 +805,7 @@
   el.frameNextButton.addEventListener("click", advanceParagraph);
   el.sceneItem.addEventListener("load", syncFrameLayout);
   el.startButton.addEventListener("click", () => {
-    requestLandscapeMode();
+    requestMobileLandscapeMode();
     el.startScreen.hidden = true;
   });
   window.addEventListener("resize", syncGameScale);
@@ -814,3 +816,4 @@
   syncGameScale();
   render();
 })();
+
