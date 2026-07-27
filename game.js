@@ -1,5 +1,6 @@
 ﻿(function () {
   const STORAGE_KEY = "mirror-circus-save-v1";
+  const MUSIC_STORAGE_KEY = "mirror-circus-music-enabled-v1";
   const IMAGE_DIR = "assets/images/";
   const GAME_WIDTH = 1920;
   const GAME_HEIGHT = 1080;
@@ -7,6 +8,8 @@
   const nodes = new Map(data.nodes.map((node) => [node.id, node]));
 
   const state = loadState();
+  let musicEnabled = localStorage.getItem(MUSIC_STORAGE_KEY) !== "false";
+  let outroMusicActive = false;
   const reading = {
     nodeId: null,
     paragraphIndex: 0,
@@ -31,6 +34,9 @@
     storyText: document.getElementById("storyText"),
     choices: document.getElementById("choices"),
     progressText: document.getElementById("progressText"),
+    musicToggle: document.getElementById("musicToggle"),
+    introMusic: document.getElementById("introMusic"),
+    outroMusic: document.getElementById("outroMusic"),
     backButton: document.getElementById("backButton"),
     restartButton: document.getElementById("restartButton"),
     mapButton: document.getElementById("mapButton"),
@@ -66,6 +72,13 @@
   function visit(id, options = {}) {
     const next = nodes.get(id);
     if (!next) return;
+    const current = nodes.get(state.currentId);
+
+    if (current?.isEnding && options.kind === "post_ending") {
+      outroMusicActive = true;
+    } else if (options.kind === "restart") {
+      outroMusicActive = false;
+    }
 
     if (state.currentId !== id) {
       state.history.push(state.currentId);
@@ -91,6 +104,7 @@
     state.currentId = data.entryNode;
     state.history = [];
     state.visited = [data.entryNode];
+    outroMusicActive = false;
     saveState();
     render();
   }
@@ -142,6 +156,8 @@
       el.sceneCharacter.hidden = true;
       el.sceneItem.hidden = true;
     }
+
+    syncMusic();
 
     const visibleParagraph = typeof visibleUnit === "string" ? visibleUnit : visibleUnit.text || "";
     el.storyText.replaceChildren(...(visibleParagraph ? [visibleParagraph] : []).map((paragraph) => {
@@ -705,6 +721,68 @@
     requestAnimationFrame(syncFrameLayout);
   }
 
+  function updateMusicButton() {
+    el.musicToggle.setAttribute("aria-pressed", String(musicEnabled));
+    el.musicToggle.title = musicEnabled ? "关闭音乐" : "开启音乐";
+    el.musicToggle.textContent = musicEnabled ? "♪" : "×";
+  }
+
+  function playMusic(audio) {
+    if (!audio || !musicEnabled) return;
+    audio.volume = 0.58;
+    audio.play().catch(() => {
+      // Browsers can block autoplay until the first user gesture.
+    });
+  }
+
+  function stopMusic(audio) {
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  function syncMusic() {
+    updateMusicButton();
+
+    if (!musicEnabled) {
+      el.introMusic.pause();
+      el.outroMusic.pause();
+      return;
+    }
+
+    const startVisible = !el.startScreen.hidden;
+    const node = nodes.get(state.currentId) || nodes.get(data.entryNode);
+
+    if (startVisible) {
+      outroMusicActive = false;
+      stopMusic(el.outroMusic);
+      playMusic(el.introMusic);
+      return;
+    }
+
+    if (node.isEnding) {
+      outroMusicActive = true;
+      stopMusic(el.introMusic);
+      playMusic(el.outroMusic);
+      return;
+    }
+
+    if (outroMusicActive) {
+      stopMusic(el.introMusic);
+      playMusic(el.outroMusic);
+      return;
+    }
+
+    stopMusic(el.introMusic);
+    stopMusic(el.outroMusic);
+  }
+
+  function toggleMusic() {
+    musicEnabled = !musicEnabled;
+    localStorage.setItem(MUSIC_STORAGE_KEY, String(musicEnabled));
+    syncMusic();
+  }
+
   async function requestMobileLandscapeMode() {
     if (!isPortraitTouchDevice()) return;
 
@@ -791,6 +869,7 @@
   el.restartButton.addEventListener("click", restart);
   el.mapButton.addEventListener("click", showMap);
   el.endingsButton.addEventListener("click", showEndings);
+  el.musicToggle.addEventListener("click", toggleMusic);
   el.storyPanel.addEventListener("click", (event) => {
     if (event.target.closest("button, .choice, .controls")) return;
     advanceParagraph();
@@ -807,13 +886,19 @@
   el.startButton.addEventListener("click", () => {
     requestMobileLandscapeMode();
     el.startScreen.hidden = true;
+    syncMusic();
   });
+  document.addEventListener("pointerdown", syncMusic, { once: true });
+  document.addEventListener("keydown", syncMusic, { once: true });
   window.addEventListener("resize", syncGameScale);
   el.closeDrawer.addEventListener("click", () => {
     el.drawer.hidden = true;
   });
 
   syncGameScale();
+  syncMusic();
   render();
 })();
+
+
 

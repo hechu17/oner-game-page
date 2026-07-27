@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
@@ -20,13 +20,20 @@
           <img id="sceneScrollImage" alt="">
         </div>
         <img class="scene-character" id="sceneCharacter" alt="" hidden>
+        <button class="music-toggle" type="button" id="musicToggle" aria-pressed="true" title="关闭音乐">♪</button>
 
         <section class="start-screen" id="startScreen" aria-label="游戏开始界面">
-          <img class="start-bg" src="assets/images/n02-old-lit-theater.png" alt="">
+          <img class="start-bg" src="assets/images/start-screen-background.webp" alt="">
           <div class="start-shade" aria-hidden="true"></div>
           <div class="start-logo">
             <p class="kicker">Mirror Circus</p>
             <h1>镜象马戏团</h1>
+          </div>
+          <div class="start-credits" aria-label="作品说明">
+            <p>灵感来源：专辑《镜象马戏团》（ONER）</p>
+            <p>故事文本来源：LOFTER 作者风笙鹤，《镜象马戏团·探秘》</p>
+            <p>视觉素材与游戏代码均由AI生成</p>
+            <p>本作仅做学习交流使用</p>
           </div>
           <button class="start-button" type="button" id="startButton">开始游戏</button>
         </section>
@@ -36,8 +43,10 @@
             <p class="kicker">Mirror Circus</p>
             <h1>镜象马戏团</h1>
           </div>
-          <div class="meter" aria-label="探索进度">
-            <span id="progressText">0 / 0</span>
+          <div class="hud-actions">
+            <div class="meter" aria-label="探索进度">
+              <span id="progressText">0 / 0</span>
+            </div>
           </div>
         </header>
 
@@ -82,7 +91,11 @@
       </div>
     </div>
 
+    <audio id="introMusic" src="assets/music/intro.mp3" preload="auto" loop></audio>
+    <audio id="outroMusic" src="assets/music/outor.mp3" preload="auto" loop></audio>
+
     <script src="game-data.js"></script>
     <script src="game.js"></script>
   </body>
 </html>
+
