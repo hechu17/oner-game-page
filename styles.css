@@ -158,12 +158,61 @@ button {
   backdrop-filter: blur(12px);
 }
 
+.start-button[hidden] {
+  display: none;
+}
+
+.start-button:disabled {
+  opacity: 0.54;
+  cursor: wait;
+}
+
 .start-button:hover,
 .start-button:focus-visible {
   border-color: var(--gold);
   background: rgba(140, 40, 48, 0.86);
   transform: translateY(-1px);
   outline: none;
+}
+
+.start-button:disabled:hover,
+.start-button:disabled:focus-visible {
+  border-color: rgba(215, 173, 99, 0.62);
+  background: rgba(18, 13, 14, 0.82);
+  transform: none;
+}
+
+.start-loading {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  width: min(680px, calc(100% - 64px));
+  color: var(--muted);
+  font-size: 18px;
+  text-align: center;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.72);
+}
+
+.start-loading[hidden] {
+  display: none;
+}
+
+.loading-track {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(215, 173, 99, 0.42);
+  background: rgba(18, 13, 14, 0.72);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.32);
+}
+
+.loading-bar {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(215, 173, 99, 0.62), var(--gold));
+  transition: width 180ms ease;
 }
 
 .scene-character {

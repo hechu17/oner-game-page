@@ -11,6 +11,7 @@
   const state = loadState();
   let musicEnabled = localStorage.getItem(MUSIC_STORAGE_KEY) !== "false";
   let outroMusicActive = false;
+  let assetsReady = false;
   const reading = {
     nodeId: null,
     paragraphIndex: 0,
@@ -26,6 +27,9 @@
     sceneScrollImage: document.getElementById("sceneScrollImage"),
     sceneCharacter: document.getElementById("sceneCharacter"),
     startScreen: document.getElementById("startScreen"),
+    startLoading: document.getElementById("startLoading"),
+    loadingText: document.getElementById("loadingText"),
+    loadingBar: document.getElementById("loadingBar"),
     startButton: document.getElementById("startButton"),
     nodeId: document.getElementById("nodeId"),
     nodeType: document.getElementById("nodeType"),
@@ -781,6 +785,77 @@
     stopMusic(el.outroMusic);
   }
 
+  function collectImageAssets() {
+    const assets = new Set(["assets/images/start-screen-background.webp"]);
+    const addAsset = (image) => {
+      if (!image || image === "__black__") return;
+      assets.add(resolveImagePath(image));
+    };
+
+    for (const node of data.nodes) {
+      addAsset(node.background);
+      addAsset(node.backgroundBefore);
+      addAsset(node.character);
+      addAsset(node.item);
+
+      for (const image of Object.values(node.paragraphBackgrounds || {})) {
+        addAsset(image);
+      }
+
+      for (const range of node.characterRanges || []) {
+        addAsset(range.character);
+      }
+    }
+
+    return [...assets];
+  }
+
+  function updateLoadingProgress(loaded, total) {
+    const percent = total === 0 ? 100 : Math.round((loaded / total) * 100);
+    el.loadingText.textContent = `资源加载中 ${percent}%`;
+    el.loadingBar.style.width = `${percent}%`;
+  }
+
+  function revealStartButton(message = "资源加载完成") {
+    assetsReady = true;
+    el.loadingText.textContent = message;
+    el.loadingBar.style.width = "100%";
+    el.startLoading.hidden = true;
+    el.startButton.hidden = false;
+    el.startButton.disabled = false;
+    el.startButton.focus({ preventScroll: true });
+  }
+
+  function preloadImage(src) {
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = () => resolve({ src, ok: true });
+      image.onerror = () => resolve({ src, ok: false });
+      image.src = src;
+    });
+  }
+
+  async function preloadImages() {
+    const assets = collectImageAssets();
+    let loaded = 0;
+    let failed = 0;
+    updateLoadingProgress(loaded, assets.length);
+
+    if (assets.length === 0) {
+      revealStartButton();
+      return;
+    }
+
+    await Promise.all(assets.map(async (src) => {
+      const result = await preloadImage(src);
+      loaded += 1;
+      if (!result.ok) failed += 1;
+      updateLoadingProgress(loaded, assets.length);
+    }));
+
+    revealStartButton(failed > 0 ? "部分资源加载失败，可继续开始" : "资源加载完成");
+  }
+
   function toggleMusic() {
     musicEnabled = !musicEnabled;
     localStorage.setItem(MUSIC_STORAGE_KEY, String(musicEnabled));
@@ -815,35 +890,231 @@
     el.drawerTitle.textContent = "分支进度";
     el.drawerBody.replaceChildren();
 
-    const list = document.createElement("div");
-    list.className = "node-list";
+    el.drawerBody.append(createMapLegend(), createFlowMap());
+  }
 
-    for (const node of data.nodes) {
-      const item = document.createElement("div");
-      item.className = "node-chip";
-      if (node.id === state.currentId) item.classList.add("current");
-      if (state.visited.includes(node.id)) item.classList.add("visited");
+  function createMapLegend() {
+    const legend = document.createElement("div");
+    legend.className = "flow-legend";
 
-      const title = document.createElement("strong");
-      title.textContent = `${node.id} ${node.title}`;
-      const meta = document.createElement("p");
-      meta.textContent = state.visited.includes(node.id)
-        ? `${node.choices.length} 个选择${node.isEnding ? "，已触达结局" : ""}`
-        : "尚未探索";
-      meta.style.margin = "6px 0 0";
+    const items = [
+      ["current", "当前位置"],
+      ["visited", "已探索"],
+      ["ending", "结局"],
+      ["locked", "未探索"],
+    ];
 
-      item.append(title, meta);
-      if (state.visited.includes(node.id)) {
-        item.tabIndex = 0;
-        item.addEventListener("click", () => visit(node.id));
-        item.addEventListener("keydown", (event) => {
-          if (event.key === "Enter") visit(node.id);
-        });
-      }
-      list.append(item);
+    for (const [kind, label] of items) {
+      const item = document.createElement("span");
+      item.className = `flow-legend-item ${kind}`;
+      item.textContent = label;
+      legend.append(item);
     }
 
-    el.drawerBody.append(list);
+    return legend;
+  }
+
+  function createFlowMap() {
+    const namespace = "http://www.w3.org/2000/svg";
+    const nodeWidth = 146;
+    const nodeHeight = 58;
+    const levelGap = 94;
+    const rowGap = 32;
+    const padding = 30;
+    const positions = getFlowPositions(nodeWidth, nodeHeight, levelGap, rowGap, padding);
+    const maxX = Math.max(...[...positions.values()].map((position) => position.x));
+    const maxY = Math.max(...[...positions.values()].map((position) => position.y));
+    const width = maxX + nodeWidth + padding;
+    const height = maxY + nodeHeight + padding;
+
+    const scroller = document.createElement("div");
+    scroller.className = "flow-map";
+
+    const svg = document.createElementNS(namespace, "svg");
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("width", String(width));
+    svg.setAttribute("height", String(height));
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "游戏分支流程图");
+
+    const defs = document.createElementNS(namespace, "defs");
+    const marker = document.createElementNS(namespace, "marker");
+    marker.setAttribute("id", "flowArrow");
+    marker.setAttribute("viewBox", "0 0 10 10");
+    marker.setAttribute("refX", "8");
+    marker.setAttribute("refY", "5");
+    marker.setAttribute("markerWidth", "6");
+    marker.setAttribute("markerHeight", "6");
+    marker.setAttribute("orient", "auto-start-reverse");
+    const markerPath = document.createElementNS(namespace, "path");
+    markerPath.setAttribute("d", "M 0 0 L 10 5 L 0 10 z");
+    marker.append(markerPath);
+    defs.append(marker);
+    svg.append(defs);
+
+    const edgeLayer = document.createElementNS(namespace, "g");
+    edgeLayer.classList.add("flow-edges");
+    const nodeLayer = document.createElementNS(namespace, "g");
+    nodeLayer.classList.add("flow-nodes");
+
+    for (const node of data.nodes) {
+      const from = positions.get(node.id);
+      if (!from) continue;
+
+      for (const choice of node.choices) {
+        if (isMapHiddenChoice(choice)) continue;
+        if (!choice.target || !nodes.has(choice.target)) continue;
+        const to = positions.get(choice.target);
+        if (!to) continue;
+        edgeLayer.append(createFlowEdge(namespace, from, to, nodeWidth, nodeHeight, choice));
+      }
+    }
+
+    for (const node of data.nodes) {
+      const position = positions.get(node.id);
+      if (!position) continue;
+      nodeLayer.append(createFlowNode(namespace, node, position, nodeWidth, nodeHeight));
+    }
+
+    svg.append(edgeLayer, nodeLayer);
+    scroller.append(svg);
+    return scroller;
+  }
+
+  function getFlowPositions(nodeWidth, nodeHeight, levelGap, rowGap, padding) {
+    const levels = getFlowLevels();
+    const rows = new Map();
+    const positions = new Map();
+
+    for (const node of data.nodes) {
+      const level = levels.get(node.id) || 0;
+      if (!rows.has(level)) rows.set(level, []);
+      rows.get(level).push(node);
+    }
+
+    for (const [level, levelNodes] of rows) {
+      const levelHeight = levelNodes.length * nodeHeight + (levelNodes.length - 1) * rowGap;
+      const yOffset = Math.max(0, (320 - levelHeight) / 2);
+
+      levelNodes.forEach((node, index) => {
+        positions.set(node.id, {
+          x: padding + level * (nodeWidth + levelGap),
+          y: padding + yOffset + index * (nodeHeight + rowGap),
+        });
+      });
+    }
+
+    return positions;
+  }
+
+  function getFlowLevels() {
+    const levels = new Map([[data.entryNode, 0]]);
+    const queue = [data.entryNode];
+
+    while (queue.length > 0) {
+      const node = nodes.get(queue.shift());
+      if (!node) continue;
+      const nextLevel = (levels.get(node.id) || 0) + 1;
+
+      for (const choice of node.choices) {
+        if (isMapHiddenChoice(choice)) continue;
+        if (!choice.target || !nodes.has(choice.target) || levels.has(choice.target)) continue;
+        levels.set(choice.target, nextLevel);
+        queue.push(choice.target);
+      }
+    }
+
+    for (const node of data.nodes) {
+      if (!levels.has(node.id)) {
+        levels.set(node.id, levels.size);
+      }
+    }
+
+    levels.set("N14", 11);
+    levels.set("N13", 12);
+    levels.set("N07", 13);
+
+    return levels;
+  }
+
+  function isMapHiddenChoice(choice) {
+    return choice.label === "返回重选";
+  }
+
+  function createFlowEdge(namespace, from, to, nodeWidth, nodeHeight, choice) {
+    const edge = document.createElementNS(namespace, "path");
+    const startX = from.x + nodeWidth;
+    const startY = from.y + nodeHeight / 2;
+    const endX = to.x;
+    const endY = to.y + nodeHeight / 2;
+    const visitedEdge = state.visited.includes(choice.target);
+    const isBackEdge = endX <= startX;
+    const control = isBackEdge ? 72 : Math.max(46, (endX - startX) * 0.42);
+    const d = isBackEdge
+      ? `M ${startX} ${startY} C ${startX + control} ${startY}, ${endX - control} ${endY}, ${endX} ${endY}`
+      : `M ${startX} ${startY} C ${startX + control} ${startY}, ${endX - control} ${endY}, ${endX} ${endY}`;
+
+    edge.setAttribute("d", d);
+    edge.classList.add("flow-edge");
+    if (visitedEdge) edge.classList.add("visited");
+    edge.setAttribute("marker-end", "url(#flowArrow)");
+    return edge;
+  }
+
+  function createFlowNode(namespace, node, position, nodeWidth, nodeHeight) {
+    const group = document.createElementNS(namespace, "g");
+    const visited = state.visited.includes(node.id);
+    group.classList.add("flow-node");
+    if (visited) group.classList.add("visited");
+    if (node.id === state.currentId) group.classList.add("current");
+    if (node.isEnding) group.classList.add("ending");
+    if (!visited) group.classList.add("locked");
+    group.setAttribute("transform", `translate(${position.x} ${position.y})`);
+
+    const title = document.createElementNS(namespace, "title");
+    title.textContent = visited
+      ? `${node.id} ${node.endingTitle || node.title}`
+      : `${node.id} 尚未探索`;
+    group.append(title);
+
+    const rect = document.createElementNS(namespace, "rect");
+    rect.setAttribute("width", String(nodeWidth));
+    rect.setAttribute("height", String(nodeHeight));
+    rect.setAttribute("rx", "6");
+    group.append(rect);
+
+    const idText = document.createElementNS(namespace, "text");
+    idText.classList.add("flow-node-id");
+    idText.setAttribute("x", "12");
+    idText.setAttribute("y", "22");
+    idText.textContent = node.id;
+    group.append(idText);
+
+    const titleText = document.createElementNS(namespace, "text");
+    titleText.classList.add("flow-node-title");
+    titleText.setAttribute("x", "12");
+    titleText.setAttribute("y", "43");
+    titleText.textContent = visited ? shortenNodeTitle(node.endingTitle || node.title) : "未探索";
+    group.append(titleText);
+
+    if (visited) {
+      group.setAttribute("role", "button");
+      group.setAttribute("tabindex", "0");
+      group.addEventListener("click", () => visit(node.id));
+      group.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          visit(node.id);
+        }
+      });
+    }
+
+    return group;
+  }
+
+  function shortenNodeTitle(title) {
+    const cleanTitle = String(title || "");
+    return cleanTitle.length > 8 ? `${cleanTitle.slice(0, 8)}...` : cleanTitle;
   }
 
   function showEndings() {
@@ -888,6 +1159,7 @@
   el.frameNextButton.addEventListener("click", advanceParagraph);
   el.sceneItem.addEventListener("load", syncFrameLayout);
   el.startButton.addEventListener("click", () => {
+    if (!assetsReady) return;
     requestMobileLandscapeMode();
     el.startScreen.hidden = true;
     syncMusic();
@@ -902,6 +1174,7 @@
   syncGameScale();
   syncMusic();
   render();
+  preloadImages();
 })();
 
 

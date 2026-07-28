@@ -15,7 +15,7 @@
     "nodes":  [
                   {
                       "id":  "N00",
-                      "title":  "大巴开场",
+                      "title":  "归家",
                       "type":  "opening",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -39,7 +39,7 @@
                   },
                   {
                       "id":  "N01",
-                      "title":  "继续游戏 / 新闻报道",
+                      "title":  "新闻",
                       "type":  "news",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -62,7 +62,7 @@
                   },
                   {
                       "id":  "N02",
-                      "title":  "三眼小象",
+                      "title":  "马戏团",
                       "type":  "memory",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -108,7 +108,7 @@
                   },
                   {
                       "id":  "N03",
-                      "title":  "扉页：理智与鲜活",
+                      "title":  "某人的本子",
                       "type":  "lore",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -167,7 +167,7 @@
                   },
                   {
                       "id":  "N04",
-                      "title":  "本子与信封",
+                      "title":  "一封信",
                       "type":  "item",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -238,7 +238,7 @@
                   },
                   {
                       "id":  "N06",
-                      "title":  "信与王冠",
+                      "title":  "王冠",
                       "type":  "item",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -273,7 +273,7 @@
                   },
                   {
                       "id":  "N07",
-                      "title":  "理解但未全明白",
+                      "title":  "真正的梦醒时分",
                       "type":  "terminal",
                       "isEnding":  true,
                       "endingTitle":  "终点 / 作者后记入口",
@@ -392,7 +392,7 @@
                   },
                   {
                       "id":  "N09",
-                      "title":  "镜象先生选择",
+                      "title":  "镜象先生给出的选择",
                       "type":  "choice",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -423,7 +423,7 @@
                   },
                   {
                       "id":  "N10",
-                      "title":  "回到化妆间，灰豹去留选择",
+                      "title":  "灰豹给出的选择",
                       "type":  "choice",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -454,7 +454,7 @@
                   },
                   {
                       "id":  "N11",
-                      "title":  "偷偷跟上去",
+                      "title":  "风雨欲来",
                       "type":  "choice",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -491,7 +491,7 @@
                   },
                   {
                       "id":  "N12",
-                      "title":  "第一幕旁白",
+                      "title":  "一段戏剧的开场",
                       "type":  "stage_opening",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -590,7 +590,7 @@
                   },
                   {
                       "id":  "N13",
-                      "title":  "经营指南",
+                      "title":  "某人的工作日记",
                       "type":  "lore",
                       "isEnding":  false,
                       "endingTitle":  null,
@@ -675,7 +675,7 @@
                   },
                   {
                       "id":  "N14",
-                      "title":  "王冠掉落 / 工作日记",
+                      "title":  "幻梦",
                       "type":  "turning_point",
                       "isEnding":  false,
                       "endingTitle":  null,
