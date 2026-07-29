@@ -215,6 +215,12 @@ button {
   transition: width 180ms ease;
 }
 
+.loading-hint {
+  color: var(--dim);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .scene-character {
   position: absolute;
   z-index: 1;
@@ -568,9 +574,11 @@ h1 {
   z-index: 18;
   top: 24px;
   right: 28px;
-  width: 34px;
+  width: 46px;
+  min-height: 42px;
   justify-content: center;
   padding: 0;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -759,7 +767,7 @@ h1 {
   right: 24px;
   bottom: 24px;
   z-index: 8;
-  width: min(460px, calc(100% - 48px));
+  width: min(980px, calc(100% - 48px));
   border: 1px solid rgba(215, 173, 99, 0.36);
   background: var(--glass-strong);
   box-shadow: var(--shadow);
@@ -782,26 +790,155 @@ h1 {
   font-size: 19px;
 }
 
-.node-list {
-  display: grid;
+.flow-legend {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
+  margin: 14px 0 12px;
 }
 
-.node-chip {
+.flow-legend-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
   border: 1px solid var(--line);
-  padding: 10px;
-  color: var(--dim);
-  background: rgba(255, 248, 233, 0.05);
-}
-
-.node-chip.current {
-  border-color: var(--gold);
-  color: var(--ink);
-}
-
-.node-chip.visited {
+  padding: 0 10px;
   color: var(--muted);
+  background: rgba(255, 248, 233, 0.05);
+  font-size: 13px;
+}
+
+.flow-legend-item::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--dim);
+}
+
+.flow-legend-item.current::before {
+  background: var(--gold);
+  box-shadow: 0 0 14px rgba(215, 173, 99, 0.6);
+}
+
+.flow-legend-item.visited::before {
+  background: var(--muted);
+}
+
+.flow-legend-item.ending::before {
+  background: var(--red);
+}
+
+.flow-legend-item.locked::before {
+  background: transparent;
+  border: 1px solid var(--dim);
+}
+
+.flow-map {
+  overflow: auto;
+  border: 1px solid rgba(255, 248, 233, 0.12);
+  background:
+    linear-gradient(rgba(255, 248, 233, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 248, 233, 0.035) 1px, transparent 1px),
+    rgba(0, 0, 0, 0.18);
+  background-size: 34px 34px;
+}
+
+.flow-map svg {
+  display: block;
+}
+
+.flow-edge {
+  fill: none;
+  stroke: rgba(159, 146, 134, 0.34);
+  stroke-width: 2;
+}
+
+.flow-edge.visited {
+  stroke: rgba(215, 173, 99, 0.58);
+}
+
+.flow-map marker path {
+  fill: rgba(159, 146, 134, 0.52);
+}
+
+.flow-node {
+  color: var(--dim);
+}
+
+.flow-node rect {
+  fill: rgba(12, 10, 11, 0.82);
+  stroke: rgba(255, 248, 233, 0.18);
+  stroke-width: 1;
+}
+
+.flow-node text {
+  pointer-events: none;
+  user-select: none;
+}
+
+.flow-node-id {
+  fill: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.flow-node-title {
+  fill: var(--dim);
+  font-size: 15px;
+}
+
+.flow-node.visited {
+  cursor: pointer;
+}
+
+.flow-node.visited rect {
+  fill: rgba(255, 248, 233, 0.08);
+  stroke: rgba(215, 173, 99, 0.46);
+}
+
+.flow-node.visited .flow-node-title {
+  fill: var(--muted);
+}
+
+.flow-node.current rect {
+  fill: rgba(140, 40, 48, 0.62);
+  stroke: var(--gold);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 16px rgba(215, 173, 99, 0.24));
+}
+
+.flow-node.current .flow-node-title {
+  fill: var(--ink);
+}
+
+.flow-node.ending rect {
+  stroke: rgba(140, 40, 48, 0.82);
+}
+
+.flow-node.ending.visited rect {
+  fill: rgba(140, 40, 48, 0.34);
+}
+
+.flow-node.locked rect {
+  fill: rgba(0, 0, 0, 0.22);
+  stroke-dasharray: 5 5;
+}
+
+.flow-node.locked .flow-node-id,
+.flow-node.locked .flow-node-title {
+  fill: rgba(159, 146, 134, 0.72);
+}
+
+.flow-node.visited:hover rect,
+.flow-node.visited:focus-visible rect {
+  stroke: var(--gold);
+  filter: drop-shadow(0 0 14px rgba(215, 173, 99, 0.28));
+}
+
+.flow-node:focus-visible {
+  outline: none;
 }
 
 .ending-item {
