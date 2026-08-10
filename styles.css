@@ -86,6 +86,17 @@ button {
   pointer-events: none;
 }
 
+.scene-ui-frame {
+  position: absolute;
+  left: -2.5%;
+  top: -2.5%;
+  z-index: 2;
+  width: 105%;
+  height: 105%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
 .start-screen {
   position: absolute;
   inset: 0;
@@ -605,11 +616,14 @@ h1 {
   width: min(1120px, calc(100% - 48px));
   min-height: 214px;
   transform: translateX(-50%);
-  border: 1px solid rgba(215, 173, 99, 0.38);
+  border: 2px solid rgba(215, 173, 99, 0.64);
   background:
     linear-gradient(180deg, rgba(255, 248, 233, 0.08), rgba(255, 248, 233, 0.02)),
     var(--glass);
-  box-shadow: var(--shadow);
+  box-shadow:
+    var(--shadow),
+    inset 0 0 0 1px rgba(255, 248, 233, 0.1),
+    inset 0 0 30px rgba(215, 173, 99, 0.08);
   backdrop-filter: blur(18px);
   padding: 18px 22px 16px;
 }
@@ -617,8 +631,26 @@ h1 {
 .story-panel::before {
   content: "";
   position: absolute;
-  inset: 9px;
-  border: 1px solid rgba(255, 248, 233, 0.1);
+  inset: 8px;
+  border: 1px solid rgba(255, 248, 233, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(10, 8, 8, 0.48);
+  pointer-events: none;
+}
+
+.story-panel::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+    linear-gradient(var(--gold), var(--gold)) left 14px top -1px / 54px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right 14px top -1px / 54px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left 14px bottom -1px / 54px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right 14px bottom -1px / 54px 2px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left -1px top 14px / 2px 42px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right -1px top 14px / 2px 42px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left -1px bottom 14px / 2px 42px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right -1px bottom 14px / 2px 42px no-repeat;
+  opacity: 0.72;
   pointer-events: none;
 }
 
