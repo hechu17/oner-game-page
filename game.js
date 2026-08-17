@@ -732,10 +732,26 @@
     el.musicToggle.textContent = musicEnabled ? "♪" : "×";
   }
 
+  function seekAudio(audio, time) {
+    if (!audio || time <= 0 || audio.currentTime >= time) return true;
+
+    if (audio.readyState === 0) {
+      audio.addEventListener("loadedmetadata", () => {
+        audio.currentTime = time;
+      }, { once: true });
+      audio.load();
+      return false;
+    }
+
+    audio.currentTime = time;
+    return true;
+  }
+
   function playMusic(audio, startTime = 0) {
     if (!audio || !musicEnabled) return;
-    if (audio.paused && startTime > 0 && audio.currentTime < startTime) {
-      audio.currentTime = startTime;
+    if (audio.paused && !seekAudio(audio, startTime)) {
+      audio.addEventListener("canplay", () => playMusic(audio, startTime), { once: true });
+      return;
     }
     audio.volume = 0.58;
     audio.play().catch(() => {
